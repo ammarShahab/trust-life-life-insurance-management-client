@@ -1,20 +1,22 @@
 import { use } from "react";
 import { Navigate } from "react-router";
-
 import AuthContext from "../context/AuthContext/AuthContext";
 import Loading from "../components/Loading/Loading";
 
-const PrivateRouter = ({ children }) => {
+const PublicRoute = ({ children }) => {
   const { user, isLoading } = use(AuthContext);
+
   if (isLoading) {
-    return <Loading></Loading>;
+    return <Loading />;
   }
 
+  // If user is logged in, redirect to dashboard (or home)
   if (user) {
-    return children;
+    return <Navigate to="/dashboard" replace />;
   }
 
-  return <Navigate to="/auth/login"></Navigate>;
+  // Otherwise, allow access to login/register
+  return children;
 };
 
-export default PrivateRouter;
+export default PublicRoute;

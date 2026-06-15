@@ -32,6 +32,7 @@ import BlogDetailsPage from "../pages/Blogs/BlogDetailsPage";
 import ClaimFormPage from "../pages/DashBoard/DashBoardHome/CustomerDashBoard/ClaimFormPage/ClaimFormPage";
 import PopularPolicies from "../pages/Home/PopularPolicies/PopularPolicies";
 import ForbiddenPage from "../pages/ForbiddenPage/ForbiddenPage";
+import PublicRoute from "../routes/PublicRoute";
 
 const router = createBrowserRouter([
   {
@@ -110,8 +111,22 @@ const router = createBrowserRouter([
     path: "/auth",
     element: <AuthLayout></AuthLayout>,
     children: [
-      { path: "/auth/login", element: <LogIn></LogIn> },
-      { path: "/auth/register", element: <Register></Register> },
+      {
+        path: "/auth/login",
+        element: (
+          <PublicRoute>
+            <LogIn />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "/auth/register",
+        element: (
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        ),
+      },
     ],
   },
   {
