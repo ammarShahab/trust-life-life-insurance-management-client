@@ -82,18 +82,18 @@ const AllPolicies = () => {
           </div>
 
           {/* search and sort */}
-          <div className="flex flex-col justify-end gap-2">
+          <div className="flex flex-row gap-4 items-center">
             <input
               type="text"
               placeholder="Search policies..."
               value={searchText}
               onChange={handleSearch}
-              className="border px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring focus:border-[#baa53a] max-w-md w-full"
+              className="border px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring focus:border-[#baa53a] max-w-xl w-full"
             />
             <select
               value={sortOrder}
               onChange={handleSortChange}
-              className="border px-4 py-2 rounded-md text-sm bg-white dark:bg-gray-700 dark:text-gray-200"
+              className="border px-6 py-2 rounded-md text-sm bg-white dark:bg-gray-700 dark:text-gray-200"
             >
               <option value="default">Sort by</option>
               <option value="asc">Premium: Low to High</option>
