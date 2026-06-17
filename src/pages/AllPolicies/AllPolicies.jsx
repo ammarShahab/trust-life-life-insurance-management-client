@@ -67,26 +67,18 @@ const AllPolicies = () => {
 
         {/* Filters, Search, Sort */}
         <div className="flex flex-wrap  gap-4 justify-between items-center mt-8 mb-4">
-          <div className="flex flex-wrap gap-2">
-            {[
-              "all",
-              "Term Life",
-              "Senior Plan",
-              "Family Plan",
-              "Child Plan",
-            ].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
-                className={`px-4 py-2 border rounded-full text-sm font-medium transition ${
-                  selectedCategory === cat
-                    ? "bg-[#baa53a] text-white dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          <div className="flex flex-wrap gap-3">
+            <select
+              value={selectedCategory}
+              onChange={(e) => handleCategoryChange(e.target.value)}
+              className="border px-7 py-2 rounded-md text-sm bg-white dark:bg-gray-700 dark:text-gray-200"
+            >
+              <option value="all">All Categories</option>
+              <option value="Term Life">Term Life</option>
+              <option value="Senior Plan">Senior Plan</option>
+              <option value="Family Plan">Family Plan</option>
+              <option value="Child Plan">Child Plan</option>
+            </select>
           </div>
 
           {/* search and sort */}
@@ -167,7 +159,7 @@ const AllPolicies = () => {
                     >
                       {pageNum}
                     </button>
-                  )
+                  ),
                 )}
               </div>
             )}
