@@ -28,16 +28,16 @@ const MeetOurAgent = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 mb-4">
-            Our Professionals
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
-            Meet Our{" "}
-            <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600 bg-clip-text text-transparent">
-              Trusted Agents
-            </span>
+          <h2
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg,rgba(112, 215, 120, 1) 0%, rgba(198, 168, 78, 1) 82%, rgba(116, 181, 241, 1) 100%)",
+            }}
+            className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-green-600 via-lime-500 to-green-600 text-transparent bg-clip-text py-2 dark:text-gray-300"
+          >
+            Meet Our Trusted Agents
           </h2>
-          <p className="mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="text-slate-600 dark:text-gray-300 text-sm sm:text-base mt-4 max-w-xl mx-auto ">
             At Trust Life, our agents ensure personalized service and expert
             guidance. Discover a few of our most dedicated team members below.
           </p>
