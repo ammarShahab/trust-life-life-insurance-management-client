@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import LogIn from "../pages/Authentication/LogIn/LogIn";
 import Register from "../pages/Authentication/Register/Register";
+import ForgotPassword from "../pages/Authentication/ForgotPassword/ForgotPassword";
 import AuthLayout from "../layouts/AuthLayout";
 import Error404 from "../pages/Error404/Error404";
 import Loading from "../components/Loading/Loading";
@@ -124,6 +125,14 @@ const router = createBrowserRouter([
         element: (
           <PublicRoute>
             <Register />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "/auth/forgot-password",
+        element: (
+          <PublicRoute>
+            <ForgotPassword />
           </PublicRoute>
         ),
       },

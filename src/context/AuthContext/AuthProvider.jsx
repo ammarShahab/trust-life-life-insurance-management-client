@@ -4,12 +4,13 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../../../public/firebase/firebase.config";
+import { auth } from "../../../public/firebase/firebase.config.js";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -19,28 +20,44 @@ const AuthProvider = ({ children }) => {
   const provider = new GoogleAuthProvider();
   const createUser = (email, password) => {
     setIsLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).finally(() => {
+      setIsLoading(false);
+    });
   };
 
   const updateUser = (updateData) => {
     setIsLoading(true);
-    return updateProfile(auth.currentUser, updateData);
+    return updateProfile(auth.currentUser, updateData).finally(() => {
+      setIsLoading(false);
+    });
   };
 
   const userLogin = (email, password) => {
     setIsLoading(true);
-
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password).finally(() => {
+      setIsLoading(false);
+    });
   };
 
   const logOut = () => {
     setIsLoading(true);
-    return signOut(auth);
+    return signOut(auth).finally(() => {
+      setIsLoading(false);
+    });
   };
 
   const googleSignIn = (provider) => {
     setIsLoading(true);
-    return signInWithPopup(auth, provider);
+    return signInWithPopup(auth, provider).finally(() => {
+      setIsLoading(false);
+    });
+  };
+
+  const resetPassword = (email) => {
+    setIsLoading(true);
+    return sendPasswordResetEmail(auth, email).finally(() => {
+      setIsLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -62,6 +79,7 @@ const AuthProvider = ({ children }) => {
     provider,
     logOut,
     googleSignIn,
+    resetPassword,
     isLoading,
     setIsLoading,
     /* theme,

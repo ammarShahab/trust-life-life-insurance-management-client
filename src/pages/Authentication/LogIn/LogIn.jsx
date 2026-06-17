@@ -132,6 +132,16 @@ const Login = () => {
               Register
             </Link>
           </p>
+
+          {/* Forgot Password */}
+          <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+            <Link
+              to="/auth/forgot-password"
+              className="text-blue-600 hover:underline dark:text-blue-400"
+            >
+              Forgot Password?
+            </Link>
+          </p>
         </form>
         <GoogleLoginButton></GoogleLoginButton>
       </div>
