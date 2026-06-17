@@ -126,6 +126,9 @@ const NavBar = () => {
                       }
                       alt="User"
                       className="h-9 w-9 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+                      onError={(e) => {
+                        e.target.src = "https://i.ibb.co/4pDNDk1/avatar.png";
+                      }}
                     />
                   </button>
 

@@ -4,11 +4,15 @@ import { Link, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import GoogleLoginButton from "../../../shared/GoogleLoginButton/GoogleLoginButton";
 import { Helmet } from "react-helmet-async";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Using react-icons library
 
 const Login = () => {
   const { userLogin, theme } = useAuth();
 
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -76,27 +80,35 @@ const Login = () => {
             )}
           </div>
 
-          {/* Password */}
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                       focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-                       dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-              placeholder="Enter your password"
-              {...register("password", { required: true })}
-            />
-            {errors.password && (
-              <p className="text-red-500 text-xs">Password is required</p>
-            )}
-          </div>
+           {/* Password */}
+           <div className="relative">
+             <label
+               htmlFor="password"
+               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+             >
+               Password
+             </label>
+             <input
+               type={showPassword ? "text" : "password"}
+               id="password"
+               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+               placeholder="Enter your password"
+               {...register("password", { required: true })}
+             />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none"
+                style={{ top: "2.3rem" }}
+              >
+                {showPassword ? <FaEyeSlash className="w-5 h-5" /> : <FaEye className="w-5 h-5" />}
+              </button>
+             {errors.password && (
+               <p className="text-red-500 text-xs">Password is required</p>
+             )}
+           </div>
 
           {/* Submit Button */}
           <button

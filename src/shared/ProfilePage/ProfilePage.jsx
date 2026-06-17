@@ -96,6 +96,9 @@ const ProfilePage = () => {
               }
               alt={customerData?.customerName || user?.displayName || "profile"}
               className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.src = "https://i.ibb.co/6D5Vf2L/default-avatar.png";
+              }}
             />
           </div>
 
