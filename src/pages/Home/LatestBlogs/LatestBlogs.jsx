@@ -72,7 +72,7 @@ const LatestBlogs = () => {
           {blogs.map((blog) => (
             <div
               key={blog._id}
-              className="bg-gray-100 text-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col hover:scale-[1.02] duration-300 dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500"
+              className="bg-gray-100 text-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col hover:scale-[1.02] duration-300 dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500 will-change-transform backface-hidden"
             >
               <img
                 src={blog.imageUrl}

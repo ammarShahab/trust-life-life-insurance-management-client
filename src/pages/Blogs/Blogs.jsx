@@ -54,7 +54,7 @@ const Blogs = () => {
           {blogs.map((blog) => (
             <div
               key={blog._id}
-              className="flex flex-col max-w-lg p-2 space-y-4 overflow-hidden rounded-lg shadow-md bg-white text-gray-800 hover:shadow-2xl transition dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500 dark:text-gray-300 hover:scale-[1.02]"
+              className="flex flex-col max-w-lg p-2 space-y-4 overflow-hidden rounded-lg shadow-md bg-white text-gray-800 hover:shadow-2xl transition dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500 dark:text-gray-300 hover:scale-[1.02] will-change-transform backface-hidden"
             >
               {/* Author Section */}
               <div className="flex space-x-4 items-center">

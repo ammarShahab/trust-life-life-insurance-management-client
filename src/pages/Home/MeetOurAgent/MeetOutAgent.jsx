@@ -44,10 +44,10 @@ const MeetOurAgent = () => {
         </div>
       </div>
 
-      <Marquee pauseOnHover speed={35} gradient={false} className="py-4">
-        {agents.map((agent, index) => (
-          <div key={index} className="group mx-4 w-80 sm:w-96">
-            <div className="relative h-full bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm rounded-2xl border border-slate-100 dark:border-slate-700/50 p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(16,185,129,0.18)] dark:hover:shadow-[0_20px_50px_-12px_rgba(16,185,129,0.12)]">
+       <Marquee pauseOnHover speed={35} gradient={false} className="py-4">
+         {agents.map((agent, index) => (
+           <div key={index} className="group mx-4 w-80 sm:w-96">
+             <div className="relative h-full bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm rounded-2xl border border-slate-100 dark:border-slate-700/50 p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(16,185,129,0.18)] dark:hover:shadow-[0_20px_50px_-12px_rgba(16,185,129,0.12)] will-change-transform backface-hidden">
               {/* Accent top line */}
               <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-emerald-400 to-cyan-400 transform origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
 
@@ -55,12 +55,12 @@ const MeetOurAgent = () => {
                 {/* Avatar with ring animation */}
                 <div className="relative mb-5">
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-40" />
-                  <div className="relative w-28 h-28 rounded-full p-[3px] bg-gradient-to-br from-emerald-100 to-cyan-100 dark:from-emerald-900/40 dark:to-cyan-900/40 transition-transform duration-500 group-hover:scale-105">
+                   <div className="relative w-28 h-28 rounded-full p-[3px] bg-gradient-to-br from-emerald-100 to-cyan-100 dark:from-emerald-900/40 dark:to-cyan-900/40 transition-transform duration-500 group-hover:scale-105 will-change-transform backface-hidden">
                     <div className="w-full h-full rounded-full overflow-hidden bg-slate-100 dark:bg-slate-700">
                       <img
                         src={agent.photoURL}
                         alt={agent.customerName}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 will-change-transform backface-hidden"
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = "https://i.ibb.co/4pDNDk1/avatar.png";

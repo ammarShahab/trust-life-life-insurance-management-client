@@ -75,7 +75,7 @@ const Benefits = () => {
         {features.map((feature, index) => (
           <div
             key={index}
-            className={`bg-gradient-to-br ${feature.gradient} rounded-lg shadow-lg p-4 transition-transform hover:scale-[1.02] duration-300 text-center dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500`}
+            className={`bg-gradient-to-br ${feature.gradient} rounded-lg shadow-lg p-4 transition-transform hover:scale-[1.02] duration-300 text-center dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500 will-change-transform backface-hidden`}
           >
             <div className="flex flex-col justify-center items-center  gap-2 mb-4">
               <p className="dark:text-white">{feature.icon}</p>

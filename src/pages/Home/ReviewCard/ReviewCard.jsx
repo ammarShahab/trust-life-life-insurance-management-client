@@ -69,7 +69,7 @@ const ReviewCard = () => {
           <Slider {...settings}>
             {reviews.map((review, index) => (
               <div key={index} className="px-3">
-                <div className="bg-white/40 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl p-6 transition duration-300 hover:scale-105">
+                <div className="bg-white/40 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl p-6 transition duration-300 hover:scale-105 will-change-transform backface-hidden">
                   <div className="flex items-center gap-5">
                     <img
                       src={review.userImage}

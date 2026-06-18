@@ -60,7 +60,7 @@ const NewsletterSubscription = () => {
             />
             <button
               type="submit"
-              className="w-full sm:w-40 px-6 py-3 bg-[#baa53a] hover:bg-[#fcd547] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out"
+              className="w-full sm:w-40 px-6 py-3 bg-[#baa53a] hover:bg-[#fcd547] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out will-change-transform backface-hidden"
             >
               Subscribe
             </button>

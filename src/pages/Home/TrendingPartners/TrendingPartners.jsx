@@ -48,17 +48,18 @@ export default function TrendingPartnersSimple() {
                 rounded-lg
               "
             >
-              <img
-                src={logo.src}
-                alt={`${logo.name} logo`}
-                loading="lazy"
-                className="
-                  object-contain
-                  max-w-full max-h-full
-                  transition-transform duration-250 ease-out
-                  hover:scale-105
-                "
-              />
+                <img
+                  src={logo.src}
+                  alt={`${logo.name} logo`}
+                  loading="lazy"
+                  className="
+                    object-contain
+                    max-w-full max-h-full
+                    transition-transform duration-250 ease-out
+                    hover:scale-105
+                    will-change-transform backface-hidden
+                  "
+                />
             </div>
           ))}
         </div>

@@ -114,7 +114,7 @@ const AllPolicies = () => {
               {sortedPolicies.map((policy) => (
                 <div
                   key={policy._id}
-                  className="bg-white dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500 rounded-lg shadow-md hover:shadow-2xl transition transform hover:scale-105 duration-200"
+                  className="bg-white dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500 rounded-lg shadow-md hover:shadow-2xl transition transform hover:scale-105 duration-200 will-change-transform backface-hidden"
                 >
                   <img
                     src={policy.image}

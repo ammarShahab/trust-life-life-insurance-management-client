@@ -39,7 +39,7 @@ const PopularPolicies = () => {
           {policies.map((policy) => (
             <div
               key={policy._id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all  flex flex-col  hover:scale-[1.02] duration-300 dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500"
+              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all  flex flex-col  hover:scale-[1.02] duration-300 dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-600 dark:to-gray-500 will-change-transform backface-hidden"
             >
               <img
                 src={policy.image}
