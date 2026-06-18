@@ -14,10 +14,16 @@ const NewsletterSubscription = () => {
       if (res.data?.insertedId) {
         toast.success("Subscribed successfully!");
         reset();
+      } else if (res.data?.message === "This email is already subscribed to the newsletter.") {
+        toast.error("Already Subscribed");
       }
     } catch (err) {
       console.error(err);
-      toast.error("Subscription failed!");
+      if (err.response?.status === 409 && err.response?.data?.message === "This email is already subscribed to the newsletter.") {
+        toast.error("Already Subscribed");
+      } else {
+        toast.error("Subscription failed!");
+      }
     }
   };
 
