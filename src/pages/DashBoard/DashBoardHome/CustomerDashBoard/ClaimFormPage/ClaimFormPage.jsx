@@ -44,29 +44,38 @@ const ClaimFormPage = () => {
   };
 
   const onSubmit = async (data) => {
-    // console.log(data);
+    try {
+      // console.log(data);
 
-    // console.log(data.claim_reason, uploadedDoc);
+      // console.log(data.claim_reason, uploadedDoc);
 
-    const claimRes = await axiosSecure.patch(
-      `/claim-request/${applicationId}`,
-      {
-        claim_reason: data.claim_reason,
-        claim_document: uploadedDoc,
-        claim_status: "claimed",
-      }
-    );
-
-    // console.log(claimRes.data);
-    if (claimRes.data.modifiedCount) {
-      Swal.fire(
-        "Claim Submitted!",
-        "Your claim request has been submitted.",
-        "success"
+      const claimRes = await axiosSecure.patch(
+        `/claim-request/${applicationId}`,
+        {
+          claim_reason: data.claim_reason,
+          claim_document: uploadedDoc,
+          claim_status: "claimed",
+        }
       );
 
-      reset();
-      navigate("/dashboard/claim-request");
+      // console.log(claimRes.data);
+      if (claimRes.data.modifiedCount) {
+        Swal.fire(
+          "Claim Submitted!",
+          "Your claim request has been submitted.",
+          "success"
+        );
+
+        reset();
+        navigate("/dashboard/claim-request");
+      }
+    } catch (error) {
+      console.error("Error submitting claim:", error);
+      Swal.fire(
+        "Error!",
+        "Failed to submit claim. Please try again.",
+        "error"
+      );
     }
   };
 
