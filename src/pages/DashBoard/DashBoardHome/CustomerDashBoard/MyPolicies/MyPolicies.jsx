@@ -153,12 +153,12 @@ const MyPolicies = () => {
                       {app.duration || "N/A"} Years
                     </td>
                     <td className="p-3 dark:text-gray-100">
-                      ${app.estimatedPremiumMonthly ?? 0} /mo
+                      ${app.estimatedPremiumMonthly ?? 0}
                     </td>
                     <td className="p-3 dark:text-gray-100">
                       <span
                         className={`text-xs font-semibold px-2.5 py-0.5 rounded ${getBadgeColor(
-                          app.status
+                          app.status,
                         )}`}
                       >
                         {app.status}
@@ -277,7 +277,7 @@ const MyPolicies = () => {
                     selectedPolicy.policyId ?? selectedPolicy._id
                   }.pdf`}
                 >
-                  {({ blob, url, loading, error }) => {
+                  {({ url, loading, error }) => {
                     if (error) {
                       console.error("PDF generation error:", error);
                       return (
