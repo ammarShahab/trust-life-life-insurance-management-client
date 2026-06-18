@@ -146,15 +146,15 @@ const MyPolicies = () => {
                         Policy Id: {app.policyId}
                       </div>
                     </td>
-                    <td className="p-3 dark:text-gray-100">
-                      {app.coverage || "N/A"}
-                    </td>
-                    <td className="p-3 dark:text-gray-100">
-                      {app.duration || "N/A"} Years
-                    </td>
-                    <td className="p-3 dark:text-gray-100">
-                      ${app.estimatedPremiumMonthly ?? 0}
-                    </td>
+<td className="p-3 dark:text-gray-100">
+                        {app.coverage || "N/A"}
+                      </td>
+                      <td className="p-3 dark:text-gray-100">
+                        {app.duration || "N/A"} Years
+                      </td>
+                      <td className="p-3 dark:text-gray-100">
+                        ${app.paymentDuration === "yearly" ? (app.estimatedPremiumYearly || 0) : (app.estimatedPremiumMonthly || 0)}
+                      </td>
                     <td className="p-3 dark:text-gray-100">
                       <span
                         className={`text-xs font-semibold px-2.5 py-0.5 rounded ${getBadgeColor(
