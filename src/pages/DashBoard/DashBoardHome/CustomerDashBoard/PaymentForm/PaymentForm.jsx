@@ -122,17 +122,35 @@ const PaymentForm = ({ state }) => {
           console.log("Payment data being sent:", paymentData);
 
           console.log("Sending payment to /payments endpoint...");
-          const paymentRes = await axiosSecure.post("/payments", paymentData);
-          console.log("Payment response:", paymentRes.data);
-          if (paymentRes.data.insertedId) {
-            // console.log("Successfully Paid for the parcel");
+          try {
+            const paymentRes = await axiosSecure.post("/payments", paymentData);
+            console.log("Payment response:", paymentRes.data);
+            if (paymentRes.data.insertedId) {
+              // console.log("Successfully Paid for the parcel");
+              await Swal.fire({
+                title: "✅ Payment Successful!",
+                html: `Your transaction ID is:<br><strong>${transactionId}</strong>`,
+                icon: "success",
+                confirmButtonText: "OK",
+              });
+              navigate("/dashboard/payment-status");
+            } else {
+              console.error("Payment failed: No insertedId in response");
+              Swal.fire({
+                title: "❌ Payment Processing Error",
+                text: "Payment was processed by Stripe but failed to save to the database. Please contact support with your transaction ID.",
+                icon: "error",
+                confirmButtonText: "OK",
+              });
+            }
+          } catch (error) {
+            console.error("Error processing payment:", error);
             Swal.fire({
-              title: "✅ Payment Successful!",
-              html: `Your transaction ID is:<br><strong>${transactionId}</strong>`,
-              icon: "success",
+              title: "❌ Payment Error",
+              text: "An error occurred while processing your payment. Please try again.",
+              icon: "error",
               confirmButtonText: "OK",
             });
-            navigate("/dashboard/payment-status");
           }
         }
       }
