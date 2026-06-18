@@ -1,3 +1,7 @@
+<!-- todo -->
+
+Claimform page submission button will not showing sweet alert and not redirecting to routes
+
 # 🛡️ Trust Life – Client Side
 
 **Trust Life** is a comprehensive life insurance management platform, built with modern web technologies. It empowers users to explore, compare, and purchase various insurance policies with secure transactions and seamless user experience.
@@ -25,12 +29,12 @@ Trust Life is designed to offer a reliable, intuitive, and responsive insurance 
 
 ## ✨ Key Features
 
-- ⚡ Instant premium quote generation for insurance policies with a smooth and user-friendly application flow  
-- 💳 Secure Stripe integration for reliable and safe premium payment processing  
-- 🔐 Role-based access control with dedicated dashboards for Customers, Agents, and Admins  
-- 📊 Efficient policy, application, and user management across different roles  
-- 🧾 Real-time status tracking for policy applications (Pending, Approved, Rejected)  
-- 🧑‍💼 Agent assignment system for handling and reviewing customer applications  
+- ⚡ Instant premium quote generation for insurance policies with a smooth and user-friendly application flow
+- 💳 Secure Stripe integration for reliable and safe premium payment processing
+- 🔐 Role-based access control with dedicated dashboards for Customers, Agents, and Admins
+- 📊 Efficient policy, application, and user management across different roles
+- 🧾 Real-time status tracking for policy applications (Pending, Approved, Rejected)
+- 🧑‍💼 Agent assignment system for handling and reviewing customer applications
 
 ---
 
@@ -71,9 +75,9 @@ Trust Life is designed to offer a reliable, intuitive, and responsive insurance 
 
 ## 📂 Scripts
 
-| Command           | Description              |
-| ----------------- | ------------------------ |
-| `npm run dev`     | Start development server |
+| Command       | Description              |
+| ------------- | ------------------------ |
+| `npm run dev` | Start development server |
 
 ---
 
