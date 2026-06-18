@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +17,7 @@ const PaymentForm = ({ state }) => {
   const [error, setError] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [isPending, startTransition] = useTransition();
 
   const { isLoading, data: applicationInfo = {} } = useQuery({
     queryKey: ["applications", applicationId],
@@ -58,103 +59,105 @@ const PaymentForm = ({ state }) => {
       return;
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card,
-    });
-
-    if (error) {
-      console.log("error", error);
-      setError(error.message);
-    } else {
-      // console.log("Payment Method", paymentMethod);
-      setError("");
-      console.log("Creating payment intent with amount:", amount);
-      const res = await axiosSecure.post("/create-payment-intent", {
-        amount,
-        applicationId,
-        paymentDuration,
+    startTransition(async () => {
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: "card",
+        card,
       });
-      console.log("Payment intent response:", res.data);
-      // console.log("res from intent", res);
 
-      const clientSecret = res.data.clientSecret;
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: user.displayName,
-            email: user.email,
-          },
-        },
-      });
-      if (result.error) {
-        // Show error to your customer
-
-        setError(result.error.message);
-        //   setSucceeded(false);
-      }       else {
+      if (error) {
+        console.log("error", error);
+        setError(error.message);
+      } else {
+        // console.log("Payment Method", paymentMethod);
         setError("");
-        console.log("Payment result", result);
-        console.log("Payment intent status:", result.paymentIntent.status);
-        console.log("Payment intent ID:", result.paymentIntent.id);
-        if (result.paymentIntent.status === "succeeded") {
-          // The payment has been processed!
-          // setError(null);
-          // setSucceeded(true);
-          // console.log("Payment succeeded:", result.paymentIntent);
-          // console.log(result);
+        console.log("Creating payment intent with amount:", amount);
+        const res = await axiosSecure.post("/create-payment-intent", {
+          amount,
+          applicationId,
+          paymentDuration,
+        });
+        console.log("Payment intent response:", res.data);
+        // console.log("res from intent", res);
 
-          const transactionId = result.paymentIntent.id;
+        const clientSecret = res.data.clientSecret;
+        const result = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: elements.getElement(CardElement),
+            billing_details: {
+              name: user.displayName,
+              email: user.email,
+            },
+          },
+        });
+        if (result.error) {
+          // Show error to your customer
 
-          const paymentData = {
-            policyTitle: applicationInfo.policyTitle,
-            policyId: state?.policyId,
-            applicationId,
-            email: user.email,
-            amount,
-            transactionId: transactionId,
-            paymentMethod: result.paymentIntent.payment_method,
-            paymentDuration,
-            status: applicationInfo.status,
-          };
+          setError(result.error.message);
+          //   setSucceeded(false);
+        }       else {
+          setError("");
+          console.log("Payment result", result);
+          console.log("Payment intent status:", result.paymentIntent.status);
+          console.log("Payment intent ID:", result.paymentIntent.id);
+          if (result.paymentIntent.status === "succeeded") {
+            // The payment has been processed!
+            // setError(null);
+            // setSucceeded(true);
+            // console.log("Payment succeeded:", result.paymentIntent);
+            // console.log(result);
 
-          console.log("Payment data being sent:", paymentData);
+            const transactionId = result.paymentIntent.id;
 
-          console.log("Sending payment to /payments endpoint...");
-          try {
-            const paymentRes = await axiosSecure.post("/payments", paymentData);
-            console.log("Payment response:", paymentRes.data);
-            if (paymentRes.data.insertedId) {
-              // console.log("Successfully Paid for the parcel");
-              await Swal.fire({
-                title: "✅ Payment Successful!",
-                html: `Your transaction ID is:<br><strong>${transactionId}</strong>`,
-                icon: "success",
-                confirmButtonText: "OK",
-              });
-              navigate("/dashboard/payment-status");
-            } else {
-              console.error("Payment failed: No insertedId in response");
+            const paymentData = {
+              policyTitle: applicationInfo.policyTitle,
+              policyId: state?.policyId,
+              applicationId,
+              email: user.email,
+              amount,
+              transactionId: transactionId,
+              paymentMethod: result.paymentIntent.payment_method,
+              paymentDuration,
+              status: applicationInfo.status,
+            };
+
+            console.log("Payment data being sent:", paymentData);
+
+            console.log("Sending payment to /payments endpoint...");
+            try {
+              const paymentRes = await axiosSecure.post("/payments", paymentData);
+              console.log("Payment response:", paymentRes.data);
+              if (paymentRes.data.insertedId) {
+                // console.log("Successfully Paid for the parcel");
+                await Swal.fire({
+                  title: "✅ Payment Successful!",
+                  html: `Your transaction ID is:<br><strong>${transactionId}</strong>`,
+                  icon: "success",
+                  confirmButtonText: "OK",
+                });
+                navigate("/dashboard/payment-status");
+              } else {
+                console.error("Payment failed: No insertedId in response");
+                Swal.fire({
+                  title: "❌ Payment Processing Error",
+                  text: "Payment was processed by Stripe but failed to save to the database. Please contact support with your transaction ID.",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+              }
+            } catch (error) {
+              console.error("Error processing payment:", error);
               Swal.fire({
-                title: "❌ Payment Processing Error",
-                text: "Payment was processed by Stripe but failed to save to the database. Please contact support with your transaction ID.",
+                title: "❌ Payment Error",
+                text: "An error occurred while processing your payment. Please try again.",
                 icon: "error",
                 confirmButtonText: "OK",
               });
             }
-          } catch (error) {
-            console.error("Error processing payment:", error);
-            Swal.fire({
-              title: "❌ Payment Error",
-              text: "An error occurred while processing your payment. Please try again.",
-              icon: "error",
-              confirmButtonText: "OK",
-            });
           }
         }
       }
-    }
+    });
   };
 
   return (
@@ -227,9 +230,19 @@ const PaymentForm = ({ state }) => {
         <button
           type="submit"
           className="w-full bg-yellow-500 hover:bg-yellow-600  text-white font-semibold py-2 rounded transition"
-          disabled={!stripe}
+          disabled={!stripe || isPending}
         >
-          Pay
+          {isPending ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Processing Payment...
+            </span>
+          ) : (
+            "Pay"
+          )}
         </button>
       </form>
       {error && <p className="text-red-500">{error}</p>}
