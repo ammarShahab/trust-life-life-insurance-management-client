@@ -34,7 +34,7 @@ const PaymentStatus = () => {
 
   const handlePayment = (app) => {
     const id = app._id;
-    const mode = paymentModes[id] || "monthly";
+    const mode = paymentModes[id] || app.paymentDuration || "monthly";
     const premium =
       mode === "yearly"
         ? app.estimatedPremiumYearly
@@ -86,7 +86,7 @@ const PaymentStatus = () => {
               ) : (
                  applications.map((app) => {
                     const id = app._id;
-                    const mode = paymentModes[id] || "monthly";
+                    const mode = paymentModes[id] || app.paymentDuration || "monthly";
                     const premium =
                       mode === "yearly"
                         ? app.estimatedPremiumYearly
