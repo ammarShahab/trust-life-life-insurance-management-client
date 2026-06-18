@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import toast from "react-hot-toast";
 import subscribeBanner2 from "../../../assets/images/subscribe_banner2.png";
 import useAxios from "../../../hooks/useAxios";
@@ -14,12 +13,19 @@ const NewsletterSubscription = () => {
       if (res.data?.insertedId) {
         toast.success("Subscribed successfully!");
         reset();
-      } else if (res.data?.message === "This email is already subscribed to the newsletter.") {
+      } else if (
+        res.data?.message ===
+        "This email is already subscribed to the newsletter."
+      ) {
         toast.error("Already Subscribed");
       }
     } catch (err) {
       console.error(err);
-      if (err.response?.status === 409 && err.response?.data?.message === "This email is already subscribed to the newsletter.") {
+      if (
+        err.response?.status === 409 &&
+        err.response?.data?.message ===
+          "This email is already subscribed to the newsletter."
+      ) {
         toast.error("Already Subscribed");
       } else {
         toast.error("Subscription failed!");
