@@ -16,7 +16,7 @@ const ManageTransactions = () => {
   });
 
   const totalIncome = payments.reduce(
-    (sum, payment) => sum + Number(payment.amount),
+    (sum, payment) => sum + Number(payment.amount) / 100,
     0
   );
 
@@ -100,7 +100,7 @@ const ManageTransactions = () => {
                     {payment.transactionId}
                   </td>
                   <td className="px-2 py-4 font-semibold text-green-600 dark:text-gray-300">
-                    ৳{payment.amount}
+                    ৳{Number(payment.amount) / 100}
                   </td>
                   <td className="px-2 py-4">
                     {new Date(payment.paymentTime).toLocaleString("en-BD", {
