@@ -18,7 +18,7 @@ A modern, role-based insurance management system built with **React**, **Express
   - [Environment Variables](#environment-variables)
   - [Installation](#installation)
 - [API Endpoints](#api-endpoints)
-- [Screenshots](#screenshots)
+<!-- - [Screenshots](#screenshots) -->
 - [Contributing](#contributing)
 - [License](#license)
 
