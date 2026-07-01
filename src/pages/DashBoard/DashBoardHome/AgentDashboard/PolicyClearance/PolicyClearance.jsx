@@ -162,7 +162,8 @@ const PolicyClearance = () => {
                   <strong>Duration:</strong> {selectedPolicy.duration}
                 </p>
                 <p>
-                  <strong>Premium:</strong> {selectedPolicy.premium}
+                  <strong>Premium:</strong>{" "}
+                  {selectedPolicy.premiumDisplay || selectedPolicy.premium}
                 </p>
               </div>
             ) : (

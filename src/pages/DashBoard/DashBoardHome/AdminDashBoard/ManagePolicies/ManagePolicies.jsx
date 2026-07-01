@@ -93,6 +93,7 @@ const ManagePolicies = () => {
       coverage: "",
       duration: "",
       premium: "",
+      premiumDisplay: "",
       image: "",
     });
     setShowModal(true);
@@ -113,7 +114,8 @@ const ManagePolicies = () => {
       maxAge: Number(data.maxAge),
       coverage: data.coverage,
       duration: data.duration,
-      premium: data.premium,
+      premium: Number(data.premium),
+      premiumDisplay: data.premiumDisplay,
       image: data.image,
       purchasedCount: parseInt(0),
     };
@@ -137,8 +139,13 @@ const ManagePolicies = () => {
   };
 
   const onSubmit = (data) => {
-    // console.log("Updating policy with ID:", editingPolicy._id, data);
-    editingPolicy ? updatePolicy.mutate(data) : handleAddPolicy(data);
+    const normalized = {
+      ...data,
+      premium: Number(data.premium),
+      minAge: Number(data.minAge),
+      maxAge: Number(data.maxAge),
+    };
+    editingPolicy ? updatePolicy.mutate(normalized) : handleAddPolicy(normalized);
   };
 
   return (
@@ -287,12 +294,23 @@ const ManagePolicies = () => {
               </div>
               <div>
                 <label className="block mb-1 font-medium">
-                  Base Premium Rate
+                  Base Premium Amount
+                </label>
+                <input
+                  type="number"
+                  placeholder="e.g. 400"
+                  {...register("premium")}
+                  required
+                  className="w-full border border-gray-300 rounded-md px-3 py-2"
+                />
+              </div>
+              <div>
+                <label className="block mb-1 font-medium">
+                  Premium Display Text
                 </label>
                 <input
                   placeholder="e.g. ৳400/month"
-                  {...register("premium")}
-                  required
+                  {...register("premiumDisplay")}
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                 />
               </div>

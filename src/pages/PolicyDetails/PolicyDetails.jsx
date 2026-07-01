@@ -84,7 +84,7 @@ const PolicyDetails = () => {
 
             <p className="text-md mb-2 dark:text-gray-300">
               <span className="font-semibold dark:text-gray-300">Premium:</span>{" "}
-              {policy.premium}
+              {policy.premiumDisplay || `৳${policy.premium}`}
             </p>
 
             <p className="text-gray-600 my-4 leading-relaxed dark:text-gray-300">
